@@ -4,4 +4,7 @@ class TweetsController < ApplicationController
     @tweets = Tweeet.all
   end
 
+  def new
+  end
+
 end
