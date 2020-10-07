@@ -1,6 +1,6 @@
 class TweetsController < ApplicationController
 
-  before_action :move_to_index, except: :index
+  before_action :move_to_index, except: [:index, :show]
 
   def index
     @tweets = Tweeet.includes(:user).page(params[:page]).per(5).order("created_at DESC")
@@ -27,6 +27,10 @@ class TweetsController < ApplicationController
     tweet.update(tweet_params) if tweet.user_id == current_user.id  
   end
 
+  def show
+    @tweet = Tweeet.find(params[:id])
+    @comments = @tweet.comments.includes(:user)
+  end
 
   private
   def tweet_params
